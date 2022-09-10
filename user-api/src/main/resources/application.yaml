@@ -1,9 +1,29 @@
 server:
-  port: 8082
-  servlet:
-    context-path: /api/v1
+  port: 0
 spring:
+  config:
+    import: configserver:http://localhost:8888
+  application:
+    name: user-microservice
   profiles:
     active: "test"
   jpa:
     open-in-view: false
+  rabbitmq:
+    addresses: localhost:5672
+    exchanges:
+      internal: user.order.exchange
+    queues:
+      user-order: user.order.queue
+    routing-keys:
+      user-order-routing: user.order.routing-key
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

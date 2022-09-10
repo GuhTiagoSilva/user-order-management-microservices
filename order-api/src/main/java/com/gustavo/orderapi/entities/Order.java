@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,10 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_order")
-public class Order {
+public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(columnDefinition = "uuid")
-    private String Id;
+    private String id;
     private String title;
     @Column(columnDefinition = "TEXT")
     private String description;

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user
+          uri: lb://user-microservice
+          predicates:
+            - Path=/users/**
+        - id: order
+          uri: lb://order-microservice
+          predicates:
+            - Path=/orders/**
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    enabled: true
